@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><link rel="stylesheet" href="/static/style.css">
+<header class="header-quote">
+    <div class="main-div-quote">
+        <div class="left-quote"></div>
+        <div class="right-quote">
+            <h2>Fuel Quote</h2>
+            <form method="POST" action="">
+                <label for="gallon" >Gallons Requested</label>
+                <input type="number" id="gallon" name="gallon" placeholder="Gallons Required">
+
+
+                <label for="datetime">Delivery Date</label>
+                <input type="datetime-local" id="datetime" name="datetime">
+
+                <label for="delivery">Delivery Address</label>
+                <p>Delivery Address</p>
+
+                <input type="submit" value="GetQuote" class="submitbtn-quote" formaction="" name="get-quote-btn">
+
+                <label for="price">Suggested Price</label>
+                <!-- <input type="number" id="price" name="price"> -->
+                <p>suggested_price</p>
+
+                <label for="totalamt">Total Amount</label>
+                <!-- <input type="number" id="totalamt" name="totalamt"> -->
+                <p>total_amt_due</p>
+
+                <input type="submit" value="Submit" class="submitbtn-quote" formaction="" name="get-quote-btn">
+
+                <!-- <input type="submit" value="Submit" class="submitbtn-quote"> -->
+                <div class="error_msg">Error! msg</div>
+                <div class="success_msg">Success-msg</div>
+            </form>
+
+            <div class="create-quote">
+                <a href="/" class="back-quote">Go Back</a>
+            </div>
+        </div>
+    </div>
+</header>
