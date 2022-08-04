@@ -172,7 +172,10 @@ body{
     text-decoration: none;
 }
 .back{
-    padding-left: 1px;
+    padding-left: 140px;
+}
+.return_login{
+    float:right;
 }
 
 
