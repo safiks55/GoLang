@@ -13,10 +13,8 @@ func findDuplicate(num []int) []int {
 				break
 			}
 		}
-
 	}
 	return res
-
 }
 
 func main() {

@@ -1,18 +1,21 @@
 package main
 
 import (
-	"fmt"
+	_ "github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func main() {
 
+	type signup struct {
+		username string `form:"username" binding:"required, min=1, max=20"`
+		pass     string `form:"password" binding:"required, min=7, max=20"`
+		cPass    string `form:"confirmpassword" binding:"required, min=7, max=20"`
+	}
+
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
-	/*router.SetFuncMap(template.FuncMap{
-		"upper": strings.ToUpper,
-	})*/
 
 	router.Static("/static", "./static")
 	router.LoadHTMLGlob("templates/*.html")
@@ -54,25 +57,13 @@ func main() {
 		})
 
 	})
-	router.Run("localhost:8080")
 
-	type signup struct {
-		username string `form:"username" binding:"required, min=1, max=20"`
-		pass     string `form:"password" binding:"required, min=7, max=20"`
-		c_Pass   string `form:"confirmpassword" binding:"required, min=7, max=20"`
+	func login (c *gin.Context){
+
 	}
 
-	router.POST("/signup", func(c *gin.Context) {
-		uname := c.PostForm("username")
-		pass := c.PostForm("password")
-		cPass := c.PostForm("confirmpassword")
-		/*var json signup
-		c.Bind(&json)
-		if json.username == "abc" && json.pass == "abc123" && json.c_Pass == json.pass {
-			c.JSON(http.StatusOK, gin.H{"status": "authorized"})
-		} else {
-			c.JSON(http.StatusUnauthorized, gin.H{"status": "un-authorized"})
-		}*/
-		fmt.Println(uname, pass, cPass)
-	})
+	router.Run("localhost:8080")
+
+
+
 }
