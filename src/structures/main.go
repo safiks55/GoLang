@@ -24,18 +24,64 @@ func addStudent(firstName, lastName, email string, id int, phoneNumber int64, s 
 	*s = append(*s, *temp)
 }
 
-func deleteStudent(id int, s []student) {
-	for i := 0; i < len(s); i++ {
-		if s[i].idNum == id {
-			s = append(s[:i], s[i+1])
+func deleteStudent(id int, s *[]student) {
+	for i := 0; i < len(*s); i++ {
+		if (*s)[i].idNum == id {
+			*s = append((*s)[:i], (*s)[i+1:]...)
 		}
+	}
+}
+
+func updateStudent(input int, id int, info string, s *[]student) {
+	switch {
+	case input == 1:
+		for i := 0; i < len(*s); i++ {
+			if (*s)[i].idNum == id {
+				(*s)[i].firstName = info
+			}
+		}
+		break
+	case input == 2:
+		for i := 0; i < len(*s); i++ {
+			if (*s)[i].idNum == id {
+				(*s)[i].lastName = info
+			}
+		}
+		break
+	case input == 3:
+		for i := 0; i < len(*s); i++ {
+			if (*s)[i].idNum == id {
+				(*s)[i].email = info
+			}
+		}
+		break
+	case input == 4:
+		temp, _ := strconv.Atoi(info)
+		for i := 0; i < len(*s); i++ {
+			if (*s)[i].idNum == id {
+				(*s)[i].idNum = temp
+			}
+		}
+		break
+	case input == 5:
+		temp2, _ := strconv.ParseInt(info, 10, 64)
+		for i := 0; i < len(*s); i++ {
+			if (*s)[i].idNum == id {
+				(*s)[i].phoneNumber = temp2
+			}
+		}
+		break
 	}
 }
 
 func printStudents(s []student) {
 	fmt.Println("************ LIST OF STUDENTS IN THE DATABASE ************")
-	for i := 0; i < len(s); i++ {
-		fmt.Println(i+1, " FirstName: ", s[i].firstName, " LastName: ", s[i].lastName, " email: ", s[i].email, " id#: ", s[i].idNum, " Phone#: ", s[i].phoneNumber)
+	if len(s) == 0 {
+		fmt.Println("Database is empty")
+	} else {
+		for i := 0; i < len(s); i++ {
+			fmt.Println(i+1, ":", "FirstName:", s[i].firstName, "LastName:", s[i].lastName, "email:", s[i].email, "id#:", s[i].idNum, "Phone#:", s[i].phoneNumber)
+		}
 	}
 }
 
@@ -49,9 +95,9 @@ func main() {
 		phoneNumber: 8322111234,
 	}
 	db = append(db, p)
-	var input int
+	var input, input2 int
 	fmt.Println(" Welcome to Student Management System ")
-	for ok := true; ok; ok = (input != 5) {
+	for ok := true; ok; ok = input != 5 {
 		fmt.Println(" Please select from the following options")
 		fmt.Println("1. Add Student")
 		fmt.Println("2. Update Student")
@@ -97,10 +143,96 @@ func main() {
 			fmt.Println("New Student Added Successfully To The DataBase!!")
 			break
 		case 2:
-			fmt.Println("2")
+			for ok := true; ok; ok = input2 != 7 {
+				fmt.Println("Please select from the following options:")
+				fmt.Println("1. Update firstName")
+				fmt.Println("2. Update lastName")
+				fmt.Println("3. Update email")
+				fmt.Println("4. Update idNum")
+				fmt.Println("5. Update email")
+				fmt.Println("6. Return to Main Menu")
+
+				n, err := fmt.Scanln(&input2)
+				if n < 1 || err != nil {
+					fmt.Println("invalid input")
+					break
+				}
+				switch input2 {
+				case 1:
+					fmt.Println("Please enter the student id: ")
+					in := bufio.NewScanner(os.Stdin)
+					in.Scan()
+					id, _ := strconv.Atoi(in.Text())
+
+					fmt.Println("Please enter the new firstName: ")
+					temp := bufio.NewScanner(os.Stdin)
+					temp.Scan()
+					fName := temp.Text()
+					updateStudent(input2, id, fName, &db)
+					break
+				case 2:
+					fmt.Println("Please enter the student id: ")
+					in := bufio.NewScanner(os.Stdin)
+					in.Scan()
+					id, _ := strconv.Atoi(in.Text())
+
+					fmt.Println("Please enter the new lastName: ")
+					temp := bufio.NewScanner(os.Stdin)
+					temp.Scan()
+					lName := temp.Text()
+					updateStudent(input2, id, lName, &db)
+
+					break
+				case 3:
+					fmt.Println("Please enter the student id: ")
+					in := bufio.NewScanner(os.Stdin)
+					in.Scan()
+					id, _ := strconv.Atoi(in.Text())
+
+					fmt.Println("Please enter the new email: ")
+					temp := bufio.NewScanner(os.Stdin)
+					temp.Scan()
+					email := temp.Text()
+					updateStudent(input2, id, email, &db)
+
+					break
+				case 4:
+					fmt.Println("Please enter the student id: ")
+					in := bufio.NewScanner(os.Stdin)
+					in.Scan()
+					id, _ := strconv.Atoi(in.Text())
+
+					fmt.Println("Please enter the new idNumber: ")
+					temp := bufio.NewScanner(os.Stdin)
+					temp.Scan()
+					idNum := temp.Text()
+					updateStudent(input2, id, idNum, &db)
+					break
+				case 5:
+					fmt.Println("Please enter the student id: ")
+					in := bufio.NewScanner(os.Stdin)
+					in.Scan()
+					id, _ := strconv.Atoi(in.Text())
+
+					fmt.Println("Please enter the new phoneNumber: ")
+					temp := bufio.NewScanner(os.Stdin)
+					temp.Scan()
+					phoneNumber := temp.Text()
+					updateStudent(input2, id, phoneNumber, &db)
+					break
+				case 6:
+					fmt.Println("Returning to main menu...")
+					time.Sleep(2 * time.Second)
+					break
+				}
+			}
 			break
 		case 3:
-			fmt.Println("3")
+			fmt.Println("Please enter the student id number: ")
+			in := bufio.NewScanner(os.Stdin)
+			in.Scan()
+			id, _ := strconv.Atoi(in.Text())
+			deleteStudent(id, &db)
 			break
 		case 4:
 			printStudents(db)
