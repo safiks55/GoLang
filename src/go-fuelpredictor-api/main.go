@@ -58,12 +58,6 @@ func main() {
 
 	})
 
-	func login (c *gin.Context){
-
-	}
-
 	router.Run("localhost:8080")
-
-
 
 }

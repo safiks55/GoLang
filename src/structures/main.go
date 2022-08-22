@@ -24,6 +24,15 @@ func addStudent(firstName, lastName, email string, id int, phoneNumber int64, s 
 	*s = append(*s, *temp)
 }
 
+func isPresent(id int, s *[]student) bool {
+	for i := range *s {
+		if (*s)[i].idNum == id {
+			return true
+		}
+	}
+	return false
+}
+
 func deleteStudent(id int, s *[]student) {
 	for i := 0; i < len(*s); i++ {
 		if (*s)[i].idNum == id {
@@ -97,6 +106,7 @@ func main() {
 	db = append(db, p)
 	var input, input2 int
 	fmt.Println(" Welcome to Student Management System ")
+jump:
 	for ok := true; ok; ok = input != 5 {
 		fmt.Println(" Please select from the following options")
 		fmt.Println("1. Add Student")
@@ -143,13 +153,14 @@ func main() {
 			fmt.Println("New Student Added Successfully To The DataBase!!")
 			break
 		case 2:
+		jump2:
 			for ok := true; ok; ok = input2 != 7 {
 				fmt.Println("Please select from the following options:")
 				fmt.Println("1. Update firstName")
 				fmt.Println("2. Update lastName")
 				fmt.Println("3. Update email")
 				fmt.Println("4. Update idNum")
-				fmt.Println("5. Update email")
+				fmt.Println("5. Update phoneNumber")
 				fmt.Println("6. Return to Main Menu")
 
 				n, err := fmt.Scanln(&input2)
@@ -163,24 +174,39 @@ func main() {
 					in := bufio.NewScanner(os.Stdin)
 					in.Scan()
 					id, _ := strconv.Atoi(in.Text())
+					if !isPresent(id, &db) {
+						fmt.Print("Id number not found!!!")
+						fmt.Println("Please try again!!")
+						goto jump2
 
-					fmt.Println("Please enter the new firstName: ")
-					temp := bufio.NewScanner(os.Stdin)
-					temp.Scan()
-					fName := temp.Text()
-					updateStudent(input2, id, fName, &db)
+					} else {
+						fmt.Println("Please enter the new firstName: ")
+						temp := bufio.NewScanner(os.Stdin)
+						temp.Scan()
+						fName := temp.Text()
+						updateStudent(input2, id, fName, &db)
+						fmt.Println("Student info updated!!!")
+					}
 					break
 				case 2:
 					fmt.Println("Please enter the student id: ")
 					in := bufio.NewScanner(os.Stdin)
 					in.Scan()
 					id, _ := strconv.Atoi(in.Text())
+					if !isPresent(id, &db) {
+						fmt.Print("Id number not found!!!")
+						fmt.Println("Please try again!!")
+						goto jump2
 
-					fmt.Println("Please enter the new lastName: ")
-					temp := bufio.NewScanner(os.Stdin)
-					temp.Scan()
-					lName := temp.Text()
-					updateStudent(input2, id, lName, &db)
+					} else {
+
+						fmt.Println("Please enter the new lastName: ")
+						temp := bufio.NewScanner(os.Stdin)
+						temp.Scan()
+						lName := temp.Text()
+						updateStudent(input2, id, lName, &db)
+						fmt.Println("Student info updated!!!")
+					}
 
 					break
 				case 3:
@@ -188,12 +214,20 @@ func main() {
 					in := bufio.NewScanner(os.Stdin)
 					in.Scan()
 					id, _ := strconv.Atoi(in.Text())
+					if !isPresent(id, &db) {
+						fmt.Print("Id number not found!!!")
+						fmt.Println("Please try again!!")
+						goto jump2
 
-					fmt.Println("Please enter the new email: ")
-					temp := bufio.NewScanner(os.Stdin)
-					temp.Scan()
-					email := temp.Text()
-					updateStudent(input2, id, email, &db)
+					} else {
+
+						fmt.Println("Please enter the new email: ")
+						temp := bufio.NewScanner(os.Stdin)
+						temp.Scan()
+						email := temp.Text()
+						updateStudent(input2, id, email, &db)
+						fmt.Println("Student info updated!!!")
+					}
 
 					break
 				case 4:
@@ -201,29 +235,45 @@ func main() {
 					in := bufio.NewScanner(os.Stdin)
 					in.Scan()
 					id, _ := strconv.Atoi(in.Text())
+					if !isPresent(id, &db) {
+						fmt.Print("Id number not found!!!")
+						fmt.Println("Please try again!!")
+						goto jump2
 
-					fmt.Println("Please enter the new idNumber: ")
-					temp := bufio.NewScanner(os.Stdin)
-					temp.Scan()
-					idNum := temp.Text()
-					updateStudent(input2, id, idNum, &db)
+					} else {
+						fmt.Println("Please enter the new idNumber: ")
+						temp := bufio.NewScanner(os.Stdin)
+						temp.Scan()
+						idNum := temp.Text()
+						updateStudent(input2, id, idNum, &db)
+						fmt.Println("Student info updated!!!")
+					}
 					break
 				case 5:
 					fmt.Println("Please enter the student id: ")
 					in := bufio.NewScanner(os.Stdin)
 					in.Scan()
 					id, _ := strconv.Atoi(in.Text())
+					if !isPresent(id, &db) {
+						fmt.Print("Id number not found!!!")
+						fmt.Println("Please try again!!")
+						goto jump2
 
-					fmt.Println("Please enter the new phoneNumber: ")
-					temp := bufio.NewScanner(os.Stdin)
-					temp.Scan()
-					phoneNumber := temp.Text()
-					updateStudent(input2, id, phoneNumber, &db)
+					} else {
+
+						fmt.Println("Please enter the new phoneNumber: ")
+						temp := bufio.NewScanner(os.Stdin)
+						temp.Scan()
+						phoneNumber := temp.Text()
+						updateStudent(input2, id, phoneNumber, &db)
+						fmt.Println("Student info updated!!!")
+					}
 					break
 				case 6:
 					fmt.Println("Returning to main menu...")
-					time.Sleep(2 * time.Second)
-					break
+					//time.Sleep(2 * time.Second)
+					goto jump
+
 				}
 			}
 			break
