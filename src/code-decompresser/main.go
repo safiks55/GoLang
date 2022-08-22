@@ -7,6 +7,7 @@ import (
 	"math"
 	"os"
 	"strconv"
+	"time"
 )
 
 // finds the bitsize for binary conversion
@@ -92,6 +93,7 @@ func printResult(alpha []string, mp map[string]int, mp2 map[string]string, decod
 	fmt.Println("Decompressed Message: ", decodedMsg)
 }
 func main() {
+	start := time.Now()
 	var (
 		alpha   []string // store alphabets here
 		dec     []int    // store decimals here
@@ -162,5 +164,8 @@ func main() {
 
 	//prinitng the result using the helper function
 	printResult(alpha, tempMap, dummy, decodedMessage)
+
+	elapsed := time.Since(start)
+	log.Printf("Code Decompressor took %s", elapsed)
 
 }
