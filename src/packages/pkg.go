@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func execTime(start time.Time, name string) {
+func ExecTime(start time.Time, name string) {
 	elapsed := time.Since(start)
 	log.Printf("%s took %s", name, elapsed)
 }
