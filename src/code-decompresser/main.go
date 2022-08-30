@@ -24,6 +24,8 @@ func findBitsize(decimal []int) int {
 	return max
 }
 
+
+
 // adds zero padding to the binary numbers
 // this function adds leading zeros (01=>010) depending on the bitsize requirement
 func addZeros(result string, x int) string {
